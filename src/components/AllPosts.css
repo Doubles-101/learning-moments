@@ -1,0 +1,64 @@
+.allpost-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title {
+    font-size: 2rem;
+    width: 80%;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-style: bold;
+    font-size: xx-large;
+}
+
+.allpost-post {
+    padding: 10px;
+    width: 80%;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: antiquewhite;
+    border-radius: 15px;
+}
+
+    .allpost-title {
+        
+        width: max-content;
+        font-size: xx-large;
+        font-style: oblique;
+    }
+
+    .allpost-date {
+        
+        width: max-content;
+        font-size: x-large;
+        font-style: oblique;
+    }
+
+    .allpost-topic {
+       
+        width: max-content;
+        font-size: x-large;
+        font-style: oblique;
+    }
+
+    .allpost-like {
+
+        width: max-content;
+        font-size: x-large;
+        font-style: oblique;
+    }
+
+    .allpost-body {
+        
+        width: max-content;
+        font-size: large;
+        font-style: oblique;
+    }
