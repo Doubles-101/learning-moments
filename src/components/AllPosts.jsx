@@ -2,10 +2,14 @@ import { useEffect, useState } from "react"
 import { getAllPosts } from "../services/getAllPosts.jsx"
 import "./AllPosts.css"
 import { getPostLikes } from "../services/getPostLikes.jsx"
+import { PostFilterBar } from "./PostFilterBar.jsx"
 
 export const AllPosts = () => {
     const [allPosts, setAllPosts] = useState([])
     const [postLikes, setPostLikes] = useState([])
+    const [dropDownType, setDropDownType] = useState('')
+    const [filteredPost, setFilteredPost] = useState([])
+    const [displayedPost, setDisplayedPost] = useState([])
 
     useEffect(() => {
         getAllPosts().then((allPostsArray) => {
@@ -20,7 +24,6 @@ export const AllPosts = () => {
     }, [allPosts])
 
 
-
     const postLikeCounter = (post) => {    
         const filteredAllPostLikeArray = postLikes.filter((postLike) => 
             parseInt(post.id) === parseInt(postLike.post.id)
@@ -30,12 +33,15 @@ export const AllPosts = () => {
 
     return (
         <div className="allpost-container">
-            <div className="title"><h1>All Posts</h1></div>
-            <button>
-                Filter
-            </button>
+            <div className="title"><h1>Posts</h1></div>
+            <PostFilterBar 
+                allPosts={allPosts} 
+                setDropDownType={setDropDownType}
+                dropDownType={dropDownType}
+                setFilteredPost={setFilteredPost}
+            />
 
-            {allPosts.map((post) => {
+            {filteredPost.map((post) => {
                 return ( 
                     <div className="allpost-post" key={post.id}>
                         <div className="allpost-title">
