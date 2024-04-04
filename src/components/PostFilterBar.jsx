@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-export const PostFilterBar = ({allPosts, setDropDownType, setFilteredPost, dropDownType}) => {
+export const PostFilterBar = ({allPosts, setDropDownType, setFilteredPost, dropDownType, setSearchTerm}) => {
  
    
     useEffect(() => {
@@ -42,6 +42,14 @@ export const PostFilterBar = ({allPosts, setDropDownType, setFilteredPost, dropD
                    return <option value={post.topic.id} id={post.topic.type}>{post.topic.type}</option>
                 })}
             </select>
+            <input 
+                onChange={(event) => {
+                    setSearchTerm(event.target.value)
+                }}
+                type="text"
+                placeholder="Search Posts"
+                className="post-search"
+            />
         </div>
     )
 }

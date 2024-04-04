@@ -34,6 +34,15 @@
         border-radius: 10px;
     }
 
+    .post-search {
+        text-align: center;
+        font-style: bold;
+        font-size: large;
+        background-color: blanchedalmond;
+        border-radius: 10px;
+        margin-left: 20px;
+    }
+
 .allpost-post {
     padding: 10px;
     width: 80%;

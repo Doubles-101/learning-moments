@@ -9,7 +9,7 @@ export const AllPosts = () => {
     const [postLikes, setPostLikes] = useState([])
     const [dropDownType, setDropDownType] = useState('')
     const [filteredPost, setFilteredPost] = useState([])
-    const [displayedPost, setDisplayedPost] = useState([])
+    const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
         getAllPosts().then((allPostsArray) => {
@@ -22,6 +22,14 @@ export const AllPosts = () => {
             setPostLikes(allPostLikesArray)
         })
     }, [allPosts])
+
+    useEffect(() => {
+        const foundPost = allPosts.filter((post) => 
+            post.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        setFilteredPost(foundPost)
+    }, [searchTerm, allPosts])
+
 
 
     const postLikeCounter = (post) => {    
@@ -39,6 +47,7 @@ export const AllPosts = () => {
                 setDropDownType={setDropDownType}
                 dropDownType={dropDownType}
                 setFilteredPost={setFilteredPost}
+                setSearchTerm={setSearchTerm}
             />
 
             {filteredPost.map((post) => {
