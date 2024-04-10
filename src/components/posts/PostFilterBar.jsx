@@ -38,8 +38,8 @@ export const PostFilterBar = ({allPosts, setDropDownType, setFilteredPost, dropD
         <div className="filter-bar">
             <select id="filter" onChange={event => setDropDownType(event.target.value)}>
                 <option value={0} id="0">All Posts</option>
-                {allPosts.map((post) => {
-                   return <option value={post.topic.id} id={post.topic.type}>{post.topic.type}</option>
+                {allPosts.map((post, i) => {
+                   return <option value={post.topic.id} id={post.topic.type} key={i}>{post.topic.type}</option>
                 })}
             </select>
             <input 

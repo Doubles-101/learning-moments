@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { getAllPosts } from "../services/getAllPosts.jsx"
+import { getAllPosts } from "../../services/getAllPosts.jsx"
 import "./AllPosts.css"
-import { getPostLikes } from "../services/getPostLikes.jsx"
+import { getPostLikes } from "../../services/getPostLikes.jsx"
 import { PostFilterBar } from "./PostFilterBar.jsx"
+import { Post } from "./Post.jsx"
 
 export const AllPosts = () => {
     const [allPosts, setAllPosts] = useState([])
@@ -32,12 +33,7 @@ export const AllPosts = () => {
 
 
 
-    const postLikeCounter = (post) => {    
-        const filteredAllPostLikeArray = postLikes.filter((postLike) => 
-            parseInt(post.id) === parseInt(postLike.post.id)
-        )
-        return filteredAllPostLikeArray.length
-    }
+    
 
     return (
         <div className="allpost-container">
@@ -50,26 +46,8 @@ export const AllPosts = () => {
                 setSearchTerm={setSearchTerm}
             />
 
-            {filteredPost.map((post) => {
-                return ( 
-                    <div className="allpost-post" key={post.id}>
-                        <div className="allpost-title">
-                            {post.title}
-                        </div>
-                        <div className="allpost-date">
-                            Date: {post.date}
-                        </div>
-                        <div className="allpost-topic">
-                            Topic: {post.topic.type}
-                        </div>
-                        <div className="allpost-like">
-                            Likes: {postLikeCounter(post)}
-                        </div>
-                        <div className="allpost-body">
-                            {post.body}
-                        </div>
-                    </div>
-                )
+            {filteredPost.map((post, i) => {
+                return <Post post={post} key={i} postLikes={postLikes} />
             })}
 
         </div>
