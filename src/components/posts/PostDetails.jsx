@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getPostDetails } from "../../services/getPostDetails.jsx"
+import { deleteLike, getLikeToggle } from "../../services/getLikeToggle.jsx"
 
 export const PostDetails = ({ currentUser }) => {
 
     const [post, setPost] = useState({})
-    const [postLikes, setPostLikes] = useState({})
+    const [postUserLikes, setPostUserLikes] = useState([])
+    const [likeNumber, setLikeNumber] = useState(0)
 
     const { postId } = useParams()
 
@@ -14,27 +16,41 @@ export const PostDetails = ({ currentUser }) => {
             const postObj = data[0]
             setPost(postObj)
         })
-    }, [])
+    }, [likeNumber])
 
-    /* to get this current post's likes */
+    /* checks database to see if the current user likes this post */
     useEffect(() => {
-       
-    }, [])
+       const likesArray = post.likes?.filter((like) => {
+            return parseInt(currentUser.id) === parseInt(like.userId)
+       })
+       setPostUserLikes(likesArray)
+    }, [post])
 
-    const numberOfLikes = () => {
-        return post.likes?.length
-    }
+    useEffect(() => {
+        setLikeNumber(post.likes?.length)
+    }, [post])
+
+   
+
 
     const handleEdit = () => {
         console.log("Edit!!")
     }
 
-    const handleLike = () => {
-        console.log("Like <3")
+    const handleLike = () => {       
 
         /* If the user already likes the post, delete the like on the likes database */
-        
         /* If the user does not already like the post, post a like on the likes database */
+        if (postUserLikes.length === 0) {
+            console.log("Like <3")
+            getLikeToggle(currentUser.id, post.id)  
+        } else if (postUserLikes.length > 0) {
+            console.log("Delete Like")
+            deleteLike(postUserLikes[0].id)
+        }
+
+        /* this runs so that the post reruns and the page properly dislplays the info */
+        setLikeNumber("")
     }
 
     return (
@@ -45,7 +61,7 @@ export const PostDetails = ({ currentUser }) => {
                 <div>{post.topic?.type}</div>
                 <div>{post.date}</div>
                 <div>{post.body}</div>
-                <div>Number of Likes: {numberOfLikes()}</div>
+                <div>Number of Likes: {likeNumber}</div>
             </div>
             <footer>
                 <div className="btn-container">
