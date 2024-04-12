@@ -20,7 +20,7 @@ export const Post = ({ post, postLikes }) => {
                     Date: {post.date}
                 </div>
                 <div className="allpost-topic">
-                    Topic: {post.topic.type}
+                    Topic: {post.topic?.type}
                 </div>
                 <div className="allpost-like">
                     Likes: {postLikeCounter(post)}
