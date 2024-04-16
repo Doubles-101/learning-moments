@@ -45,6 +45,7 @@ export const PostDetails = ({ currentUser }) => {
         if (postUserLikes.length === 0) {
             console.log("Like <3")
             getLikeToggle(currentUser.id, post.id)  
+            navigate(`/favorites`)
         } else if (postUserLikes.length > 0) {
             console.log("Delete Like")
             deleteLike(postUserLikes[0].id)
@@ -58,7 +59,9 @@ export const PostDetails = ({ currentUser }) => {
         <div>
             <header>{post.title}</header>
             <div>
-                <div>{post.user?.fullName}</div>
+                <Link to={`/userprofile/${post.userId}`}>
+                    <div>{post.user?.fullName}</div>
+                </Link>
                 <div>{post.topic?.type}</div>
                 <div>{post.date}</div>
                 <div>{post.body}</div>
