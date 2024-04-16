@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 import { getPostDetails } from "../../services/getPostDetails.jsx"
 import { deleteLike, getLikeToggle } from "../../services/getLikeToggle.jsx"
 
@@ -10,6 +10,7 @@ export const PostDetails = ({ currentUser }) => {
     const [likeNumber, setLikeNumber] = useState(0)
 
     const { postId } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         getPostDetails(postId).then((data) => {
@@ -34,7 +35,7 @@ export const PostDetails = ({ currentUser }) => {
 
 
     const handleEdit = () => {
-        console.log("Edit!!")
+        navigate("/editpost")
     }
 
     const handleLike = () => {       
@@ -50,7 +51,7 @@ export const PostDetails = ({ currentUser }) => {
         }
 
         /* this runs so that the post reruns and the page properly dislplays the info */
-        setLikeNumber("")
+        setLikeNumber('')
     }
 
     return (
@@ -67,7 +68,7 @@ export const PostDetails = ({ currentUser }) => {
                 <div className="btn-container">
                     {/* Need to add onClick to move the user to the edit post view */}
                     {currentUser.id === parseInt(post.user?.id) ?(
-                        <button className="btn-like" onClick={handleEdit}>Edit</button>) : (                           
+                        <Link to={`/editpost/${postId}`}><button className="btn-like">Edit</button></Link>) : (                           
                         "")}
                         {/* Need to add onClick to POST to the database that the user likes the post */}
                     {currentUser.id !== parseInt(post.user?.id) ?(
